@@ -6,7 +6,7 @@ Thomas Frank, Nodebite, June 2015
 
 ### Download
 
-[Download the mongresto module.](http://www.nodebite.se/mongresto/mongresto.js)
+[Download the mongresto module.](https://raw.githubusercontent.com/ironboy/mongresto/master/mongresto.js)
 
 (Mongresto hasn't been packaged as a NPM module yet.)
 
