@@ -1,5 +1,5 @@
 /*
-  mongresto 0.18
+  mongresto 0.19
 
   June 2015 Nodebite AB, Thomas Frank
 
@@ -192,10 +192,10 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // try to eval to object, otherwise, if truthy,
     // assume it is an _id, otherwise assume it is nothing
 
-    // Jump through som hoops so we can use JSON.parse (instead of evil eval) 
+    // Jump through some hoops so we can use JSON.parse (instead of evil eval) 
     var s2 = search
       // add quotation marks around non quoted keys
-      .replace(/([\{\,]\s*)(\w*)(\s*:)/g,'$1"$2"$3')
+      .replace(/([\{\,]\s*)([\w|\$]*)(\s*:)/g,'$1"$2"$3')
       // convert regular expressions to strings
       .replace(/:(\s*\/[^\}^,]*\w{0,1})/g,':"~regexpstart~$1~regexpend~"');
     var s3 = s2, temp;
@@ -325,7 +325,7 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // Respond to CRUD calls
     var singleton = !this.forceArray && this.req.method == "GET" && this.search._id;
     this.res.status(error ? errorCode || 500 : 200);
-    result = (singleton && result[0]) || (!singleton && result);
+    result = (singleton && result && result[0]) || (!singleton && result);
     if(!this.checkPermission("Answer",result)){return;}
     this.res.json((error && {_error:error}) || result);
   },
