@@ -53,7 +53,6 @@ If you want to you can set a number of options as well . Otherwise they will be 
 
   // A function written by you - it gets access to the current question
   // and can deny Mongresto permission to run it
-
   permissionToAsk:
     function(modelName, method, query, rbody){ return true; },
 
