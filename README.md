@@ -1,4 +1,4 @@
-# mongresto 0.17 - documentation
+# mongresto 0.18 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -24,18 +24,50 @@ In your node.js app add the following:
 // Require the module
 var mongresto = require("./mongresto.js");
 // Initialize it (the variable app must be the Express server instance)
-mongresto.init(app[,dbName,apiPath,modelPath,ngResourcesPath]);
+mongresto.init(app[,options]);
 ```
 
 #### Optional parameters
 
-**dbName** [default value: _test_] The MongoDB database mongresto should use.
+If you want to you can set a number of options as well . Otherwise they will be set to their default values:
 
-**apiPath** [default value: _/api_] Url path to the REST api
+```javascript
+{
 
-**modelPath** [default value: _./mongoose-models/_] File path to a folder where you will store your mongoose models.
+  // The MongoDB database to connect to
+  dbName: "test",
 
-**ngResourcesPath** [default value: _/api/ngresources_] Path to an url where mongresto will output a javascript file that uses ngResource to create objects you can use to easily consume the REST service in Angular.
+  // The path to the rest api
+  apiPath: "/api",
+
+  // The path where you should put your Mongoose models
+  modelPath: "./mongoose-models/",
+
+  // The path where Mongresto will autogenerate
+  // frontend JavaScript containing ngResource-based objects
+  ngResourcesPath: "/api/ngresources",
+
+  // If Angular.js should stop all further requests to the backend
+  // if one result comes back as an error
+  ngStopQueueOnError: false,
+
+  // A function written by you - it gets access to the current question
+  // and can deny Mongresto permission to run it
+
+  permissionToAsk:
+    function(modelName, method, query, rbody){ return true; },
+
+  // A function written by you - it gets access to the current result
+  // (and question) and can deny Mongresto permission to return it
+  permissionToAnswer:
+    function(modelName, method, query, rbody, result){ return true; } 
+
+}
+```
+
+#### A note on security:
+
+Mongresto does not handle security based on user privileges. It will create, delete, update and show anything you ask for. By defining your own **permissionToAsk** and **permissionToAnswer** functions you can integrate your own handling of user roles and privileges with mongresto in a simple, yet fine-grained way.
 
 ### Use with Angular.js
 
