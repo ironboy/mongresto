@@ -26,7 +26,7 @@ var mongresto = require("./mongresto.js");
 // Initialize it (the variable app must be the Express server instance)
 mongresto.init(app[,options]);
 ```
-#### Pleae note:
+#### Please note:
 Mongresto relies on the app running [Express](http://expressjs.com) with the [body-parser module](https://github.com/expressjs/body-parser). A typical boiler-plate code for your app.js might thus look something like this:
 ```javascript
 // Require modules
@@ -126,6 +126,12 @@ If you want to take advantage of mongrestos integration with Angular.js, do the 
  -->
 <script src="/api/ngResources/app"></script>
 <!-- Include your controllers etc. -->
+```
+
+#### Please note:
+In order for the integration with Angular to work you should set upp your app with injected dependencies pointing to ngRoute and ngResource (in the example below we also inject a dependency to "ui.bootstrap"):
+```javascript
+var app = angular.module("ngNode", ["ngRoute", "ngResource", "ui.bootstrap"]);
 ```
 
 Your next step will be to add one (or several) mongoose models.
