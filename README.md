@@ -27,7 +27,7 @@ var mongresto = require("./mongresto.js");
 mongresto.init(app[,options]);
 ```
 #### Pleae note:
-Mongresto relies on the app running Express with the body-parser module. A typical boiler-plate code for your app.js might thus look something like this:
+Mongresto relies on the app running [Express](http://expressjs.com) with the [body-parser module](https://github.com/expressjs/body-parser). A typical boiler-plate code for your app.js might thus look something like this:
 ```javascript
 // Require modules
 var m = {};
@@ -63,7 +63,7 @@ app.get('*', function (req, res) {
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
-``
+```
 
 #### Optional parameters
 
