@@ -34,7 +34,6 @@ var m = {};
 [
   "express",
   "path",
-  "serve-favicon",
   "cookie-parser",
   "body-parser",
   "./mongresto"
@@ -45,7 +44,6 @@ var m = {};
 
 // Standard Express boiler plate code
 var app = m.express();
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(m.bodyparser.json());
 app.use(m.bodyparser.urlencoded({ extended: false }));
 app.use(m.cookieparser());
