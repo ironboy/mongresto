@@ -27,7 +27,7 @@ var mongresto = require("./mongresto.js");
 mongresto.init(app[,options]);
 ```
 #### Please note:
-Mongresto relies on the app running [Express](http://expressjs.com) with the [body-parser module](https://github.com/expressjs/body-parser). A typical boiler-plate code for your app.js might thus look something like this:
+Mongresto relies on the app running [Express](http://expressjs.com) with the [body-parser module](https://github.com/expressjs/body-parser). Typical boiler-plate code for your app.js might thus look something like this:
 ```javascript
 // Require modules
 var m = {};
@@ -127,7 +127,7 @@ If you want to take advantage of mongrestos integration with Angular.js, do the 
 ```
 
 #### Please note:
-In order for the integration with Angular to work you should set upp your app with injected dependencies pointing to ngRoute and ngResource (in the example below we also inject a dependency to "ui.bootstrap"):
+In order for the integration with Angular to work you should set up your app with injected dependencies pointing to ngRoute and ngResource (in the example below we also inject a dependency to "ui.bootstrap"):
 ```javascript
 var app = angular.module("ngNode", ["ngRoute", "ngResource", "ui.bootstrap"]);
 ```
