@@ -95,8 +95,30 @@ If you want to you can set a number of options as well . Otherwise they will be 
   // A function written by you - it gets access to the current result
   // (and question) and can deny Mongresto permission to return it
   permissionToAnswer:
-    function(modelName, method, query, rbody, result){ return true; } 
+    function(modelName, method, query, rbody, result){ return true; },
 
+  // An array of objects which define "custom routes". Custom routes get
+  // mongrestos' mongoose connection injected but otherwise disregard all
+  // mongresto functionality
+  customRoutes: [
+    {
+      path: "customRoute/:param1",
+      // route name AFTER '/api/'
+
+      controller: customRouteController
+      /*
+        function that will recieve mongoose connection,
+        should return an express function or array of functions
+        example:
+
+        function customRouteController(mongoose) {
+          return [function (req, res) {
+            res.json(true);
+          }];
+        }
+      */
+    }
+  ]
 }
 ```
 

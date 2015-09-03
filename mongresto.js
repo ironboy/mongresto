@@ -56,8 +56,11 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // A function written by you - it gets access to the current result
     // (and question) and can deny Mongresto permission to return it
     permissionToAnswer:
-      function(modelName, method, query, rbody, result){ return true; } 
-      
+      function(modelName, method, query, rbody, result){ return true; },
+
+    customRoutes: [
+      // {path: "", controller:""}
+    ]
   },
 
   init: function(app,options){
@@ -77,6 +80,12 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // A url path that will respond with ngresources
     app.get(this.ngResourcesPath + '/*', function (req, res) {
       mongresto.buildNgResourcesScript(req,res);
+    });
+
+    // Setup any custom routes
+    var me = this;
+    this.customRoutes.forEach(function(route) {
+      app[route.method](me.apiPath + '/' + route.path, route.controller(me.mongoose));
     });
 
     // Send all api request to apiCall
