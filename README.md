@@ -90,12 +90,12 @@ If you want to you can set a number of options as well . Otherwise they will be 
   // A function written by you - it gets access to the current question
   // and can deny Mongresto permission to run it
   permissionToAsk:
-    function(modelName, method, query, rbody){ return true; },
+    function(modelName, method, query, req){ return true; },
 
   // A function written by you - it gets access to the current result
   // (and question) and can deny Mongresto permission to return it
   permissionToAnswer:
-    function(modelName, method, query, rbody, result){ return true; },
+    function(modelName, method, query, req, result){ return true; },
 
   // An array of objects which define "custom routes". Custom routes get
   // mongrestos' mongoose connection injected but otherwise disregard all

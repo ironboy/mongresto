@@ -51,12 +51,12 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // and can deny Mongresto permission to run it
     
     permissionToAsk:
-      function(modelName, method, query, rbody){ return true; },
+      function(modelName, method, query, req){ return true; },
     
     // A function written by you - it gets access to the current result
     // (and question) and can deny Mongresto permission to return it
     permissionToAnswer:
-      function(modelName, method, query, rbody, result){ return true; },
+      function(modelName, method, query, req, result){ return true; },
 
     customRoutes: [
       // {path: "", controller:""}
@@ -280,7 +280,7 @@ var mongresto = module.exports = (function _mongresto(){ return {
       this.model.modelName,
       this.method,
       this.search,
-      this.req.body,
+      this.req,
       result
     )){return true;}
     this.responder("Forbidden",false,403);
