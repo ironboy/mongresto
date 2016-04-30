@@ -1,7 +1,7 @@
 /*
-  mongresto 0.19
+  mongresto 0.20
 
-  June 2015 Nodebite AB, Thomas Frank
+  April 2016 Nodebite AB, Thomas Frank
 
   MIT Licensed - use anywhere you want!
 
@@ -209,21 +209,17 @@ var mongresto = module.exports = (function _mongresto(){ return {
       .replace(/:(\s*\/[^\}^,]*\w{0,1})/g,':"~regexpstart~$1~regexpend~"');
     var s3 = s2, temp;
     try {
-      s3 = JSON.parse(s2);
-      var t;
-      // convert strings containing reg exps to real reg exps
-      for(var i in s3){
-        t = s3[i];
-        if(t.indexOf('~regexpstart~')===0){
+      s3 = JSON.parse(s2,function(key,t){
+        if((t+'').indexOf('~regexpstart~')===0){
           t = t.replace(/~regexpstart~/g,'').replace(/~regexpend~/,'');
           t = t.split("/");
           t.shift();
-          s3[i] = new RegExp(t[0],t[1] || "");
+          t = new RegExp(t[0],t[1] || "");
         }
-      }
+        return t;
+      });
     } catch(e){}
     search = s3;
-    
     return typeof search == "object" ?
       search : (search ? {_id:search} : {});
   },
@@ -296,13 +292,22 @@ var mongresto = module.exports = (function _mongresto(){ return {
     // but rather a clone of it (look in the apiCall method)
     var that = this, responder = function(){that.responder.apply(that,arguments);};
 
+    // Special operators like _populate, _skip, _limit etc
+    this.search._populate = this.populate;
+    var specials = {};
+    for(var i in this.search){
+      if(i.indexOf("_") === 0 && this.search[i] !== undefined){
+        specials[i.substr(1)] = this.search[i];
+        delete this.search[i];
+      }
+    }
+
     if(this.method == "GET"){
-      if(!this.populate){
-        this.model.find(this.search,responder);
+      var r = this.model.find(this.search);
+      for(var i in specials){
+        typeof r[i] == "function" && (r = r[i](specials[i]));
       }
-      else {
-        this.model.find(this.search).populate(this.populate).exec(responder);
-      }
+      r.exec(responder);
     }
 
     if(this.method == "DELETE"){
