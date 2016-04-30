@@ -1,5 +1,5 @@
 /*
-  mongresto 0.2.5
+  mongresto 0.2.6
 
   April 2016 Nodebite AB, Thomas Frank
 
@@ -26,7 +26,7 @@
 */
 
 
-var mongresto = module.exports = (function _mongresto(){ return {
+var mongresto = (function _mongresto(){ return {
 
   defaults: {
  
@@ -545,3 +545,9 @@ var mongresto = module.exports = (function _mongresto(){ return {
   }, // end ng methods
 
 };})();
+
+module.exports = {
+  init: function(){
+    return mongresto.init.apply(mongresto,arguments);
+  }
+};
