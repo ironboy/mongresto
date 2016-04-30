@@ -1,5 +1,5 @@
 /*
-  mongresto 0.2.1
+  mongresto 0.2.2
 
   April 2016 Nodebite AB, Thomas Frank
 
@@ -151,6 +151,12 @@ var mongresto = module.exports = (function _mongresto(){ return {
   },
 
   getFileNames: function(path,callback){
+
+    var mpath = require("path"),
+        appRoot = '' + require('app-root-path');
+
+    path = mpath.normalize(appRoot + '/' + path);
+
     // Read a folder recursively looking for js files
     var fs = require('fs'), base = {__count:0, arr: []};
     recursiveReadDir(path);
@@ -169,7 +175,9 @@ var mongresto = module.exports = (function _mongresto(){ return {
             base.arr.push(path + i);
           }
         }
-        if(base.__count === 0){callback(base.arr);}
+        if(base.__count === 0){
+          callback(base.arr);
+        }
       });
     }
   },
@@ -296,6 +304,7 @@ var mongresto = module.exports = (function _mongresto(){ return {
     this.search._populate = this.populate;
     var specials = {};
     for(var i in this.search){
+      if(i == "_id" || i == "__v"){ continue; }
       if(i.indexOf("_") === 0 && this.search[i] !== undefined){
         specials[i.substr(1)] = this.search[i];
         delete this.search[i];
