@@ -33,7 +33,7 @@ var m = {};
   "path",
   "cookie-parser",
   "body-parser",
-  "./mongresto"
+  "mongresto"
 ].forEach(function(x){
   // store required modules in m
   m[x.replace(/\W/g,'')] = require(x);
