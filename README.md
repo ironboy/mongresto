@@ -822,5 +822,48 @@ Here you can see the results:
 ]
 ```
 
-Relation handling is the freshest and least tested part of **mongresto** and one could argue that if we have a special _update _relate_ feature, why not have a _update _unrelate_ feature as well. Stay tuned for updates in this area!
+## Sorting, skipping and limiting
+In *Mongoose* the syntax for sorting, skipping and limiting has changed a lot between versions. The current syntax follows MongoDB closely. Suppose that we have the following Mongoose model:
 
+```javascript
+module.exports = function(mongoose){
+
+  // Create a new mongoose schema
+  var AnimalSchema = mongoose.Schema({
+    name: {type: String, required: true}
+    species: {type: String, required: true},
+    description: String
+  });
+
+  // Return the model
+  return mongoose.model("Animal", AnimalSchema);
+};
+```
+
+Then the following *backend javascript* for Mongoose would sort find all rabbits, sort them by name, skip the first 10 documents and deliver the next 5:
+
+```javascript
+// PLEASE NOTE: This is Mongoose code, NOT Mongresto code
+Animal.find({species:"rabbit"})
+  .sort({name: 1})
+  .skip(10)
+  .limit(5)
+  .exec(function(err,result,errCode){
+    var someRabbits = result;
+    console.log(someRabbits);
+  });
+```
+
+The same code using Mongresto in Angular would look like this:
+```javascript:
+$scope.someRabbits = Animal.get({
+  species:"rabbit",
+  _sort:{name: 1},
+  _skip:10,
+  _limit:5
+});
+```
+
+Note that it is important in what order you write your properties. Here the result will first be sorted, then a number of documents skipped and lastly the result will be limited to 5 documents.
+
+(You can actually call any Mongoose function - like *sort*, *skip*, *limit* etc - by creating a property with the function name prefixed with "_".)
