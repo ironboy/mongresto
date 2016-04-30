@@ -1,4 +1,4 @@
-# mongresto 0.2.6 - documentation
+# mongresto 0.2.8 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -15,80 +15,57 @@ Install MongoDB, node.js, Express and Mongoose.
 
 ### Include mongresto in your node.js/Express app
 
-In your node.js app add the following:
-
+Typical boiler-plate code for your app.js might look something like this:
 ```javascript
-// Require the module
-var mongresto = require("./mongresto.js");
-// Initialize it (the variable app must be the Express server instance)
-mongresto.init(app[,options]);
+var app = require("mongresto")({
+  dbName: "animalExample",
+  staticFolder: './www'
+});
+
+// Since Mongresto returns a normal Express app 
+// we can use whatever standard Express middleware
+app.use( require("cookie-parser")() );
+
+// Start up the Express app
+app.listen(3000);
 ```
-#### Please note:
-Mongresto relies on the app running [Express](http://expressjs.com) with the [body-parser module](https://github.com/expressjs/body-parser). Typical boiler-plate code for your app.js might thus look something like this:
-```javascript
-// Require modules
-var m = {};
-[
-  "express",
-  "path",
-  "cookie-parser",
-  "body-parser",
-  "mongresto"
-].forEach(function(x){
-  // store required modules in m
-  m[x.replace(/\W/g,'')] = require(x);
-});
-
-// Standard Express boiler plate code
-var app = m.express();
-app.use(m.bodyparser.json());
-app.use(m.bodyparser.urlencoded({ extended: false }));
-app.use(m.cookieparser());
-app.use(m.express.static(m.path.join(__dirname, 'public')));
-
-// Initialize our own REST api - mongresto
-m.mongresto.init(app, {dbName: "yourDbName"});
-
-// Route everything "else" to angular (in html5mode)
-app.get('*', function (req, res) {
-  res.sendFile('index.html', {root: './public'});
-});
-
-// Start up
-app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
-```
-
+Mongresto includes Mongoose as a dependency - since it consumes Mongoose models.
+It also includes Express as a dependency and returns a standard Express app upon initialization.
 #### Optional parameters
 
 If you want to you can set a number of options as well (in an object, sent as the second argument to *init*). Otherwise they will be set to their default values:
 
 ```javascript
-{
-
-  // The MongoDB database to connect to
+// The MongoDB database to connect to
   dbName: "test",
 
   // The path to the rest api
   apiPath: "/api",
 
+  // A path to a static folder
+  staticFolder: "./www",
+
+  // The root file of the Angular app
+  // (use for all urls in staticFolder that doesn't 
+  //  resolve to a filename)
+  angularRoot: "index.html",
+  
   // The path where you should put your Mongoose models
   modelPath: "./mongoose-models/",
-
+  
   // The path where Mongresto will autogenerate
   // frontend JavaScript containing ngResource-based objects
   ngResourcesPath: "/api/ngresources",
-
+  
   // If Angular.js should stop all further requests to the backend
   // if one result comes back as an error
   ngStopQueueOnError: false,
-
+  
   // A function written by you - it gets access to the current question
   // and can deny Mongresto permission to run it
   permissionToAsk:
     function(modelName, method, query, req){ return true; },
-
+  
   // A function written by you - it gets access to the current result
   // (and question) and can deny Mongresto permission to return it
   permissionToAnswer:

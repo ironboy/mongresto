@@ -1,5 +1,5 @@
 /*
-  mongresto 0.2.6
+  mongresto 0.2.8
 
   April 2016 Nodebite AB, Thomas Frank
 
@@ -35,6 +35,14 @@ var mongresto = (function _mongresto(){ return {
 
     // The path to the rest api
     apiPath: "/api",
+
+    // A path to a static folder
+    staticFolder: "./www",
+
+    // The root file of the Angular app
+    // (use for all urls in staticFolder that doesn't 
+    //  resolve to a filename)
+    angularRoot: "index.html",
     
     // The path where you should put your Mongoose models
     modelPath: "./mongoose-models/",
@@ -49,7 +57,6 @@ var mongresto = (function _mongresto(){ return {
     
     // A function written by you - it gets access to the current question
     // and can deny Mongresto permission to run it
-    
     permissionToAsk:
       function(modelName, method, query, req){ return true; },
     
@@ -58,20 +65,19 @@ var mongresto = (function _mongresto(){ return {
     permissionToAnswer:
       function(modelName, method, query, req, result){ return true; },
 
+    // Custom routes (see documentation)
     customRoutes: [
       // {path: "", controller:""}
     ]
   },
 
-  init: function(app,options){
+  init: function(app,options,m){
 
     console.log("Mongresto: Initializing!");
 
     // Use defaults if no option is set
-    options = options || {};
-    for(var i in this.defaults){
-      this[i] = options[i] || this.defaults[i];
-    }
+    options = Object.assign(this.defaults, options);
+    Object.assign(this,options);
 
     // Connect to DB and load mongoose models
     this.connectToDb();
@@ -92,6 +98,19 @@ var mongresto = (function _mongresto(){ return {
     app.all(this.apiPath + '/*', function (req, res) {
       mongresto.apiCall(req,res);
     });
+
+    // Set up static folder
+    if(m && options.staticFolder){
+      options.staticFolder = m.path.normalize(
+        m.approotpath + '/' + options.staticFolder
+      );
+      app.use(m.express.static(options.staticFolder));
+      if(options.angularRoot){
+        app.get('*', function (req, res) {
+          res.sendFile(options.angularRoot, {root: options.staticFolder});
+        });
+      }
+    }
 
   },
 
@@ -546,8 +565,30 @@ var mongresto = (function _mongresto(){ return {
 
 };})();
 
-module.exports = {
-  init: function(){
-    return mongresto.init.apply(mongresto,arguments);
-  }
+// Start up
+function pub(options){
+
+  var m = {};
+  [
+    "path",
+    "express",
+    "body-parser",
+    "app-root-path"
+  ].forEach(function(x){
+    // store required modules in m
+    m[x.replace(/\W/g,'')] = require(x);
+  });
+
+  var app = m.express();
+  app.use(m.bodyparser.json());
+  app.use(m.bodyparser.urlencoded({ extended: false }));
+  mongresto.init(app,options,m);
+  return app;
+}
+
+// The old init method (deprecated but supported for a while)
+pub.init = function(app,options){
+  return mongresto.init.apply(mongresto,[app,options]);
 };
+
+module.exports = pub;
