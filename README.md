@@ -823,7 +823,7 @@ Here you can see the results:
 ```
 
 ## Sorting, skipping and limiting
-In *Mongoose* the syntax for sorting, skipping and limiting has changed a lot between versions. The current syntax follows MongoDB closely. Suppose that we have the following Mongoose model:
+Suppose that we have the following Mongoose model:
 
 ```javascript
 module.exports = function(mongoose){
@@ -839,8 +839,7 @@ module.exports = function(mongoose){
   return mongoose.model("Animal", AnimalSchema);
 };
 ```
-
-Then the following *backend javascript* for Mongoose would sort find all rabbits, sort them by name, skip the first 10 documents and deliver the next 5:
+In *Mongoose* the syntax for sorting, skipping and limiting has changed a lot between versions. However current syntax follows MongoDB closely. Thus the following **backend code for Mongoose** would find all rabbits, sort them by name, skip the first 10 documents and deliver the next 5:
 
 ```javascript
 // PLEASE NOTE: This is Mongoose code, NOT Mongresto code
