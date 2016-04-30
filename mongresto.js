@@ -236,7 +236,7 @@ var mongresto = module.exports = (function _mongresto(){ return {
       this.search = {_id: { $in: b.__idsToLookFor__} };
       delete b.__idsToLookFor__;
       for(var i in b){
-        // if the "foreing key" is an array then
+        // if the "foreign key" is an array then
         // change from replacing it to adding to it
         if(this.model.schema.paths[i].instance == "Array"){
           b["$addToSet"] = b["$addToSet"] || {};
