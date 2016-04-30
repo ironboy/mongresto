@@ -1,8 +1,8 @@
-# mongresto 0.19 - documentation
+# mongresto 0.20 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
-Thomas Frank, Nodebite, June 2015
+Thomas Frank, Nodebite, April 2016
 
 ### Download
 
@@ -209,12 +209,12 @@ URL: /api/person
 Request body:
 [
   {
-    "name:"Annie",
+    "name":"Annie",
     "age": 30,
     "towelColor": "green"
   },
   {
-    "name:"Xerxes",
+    "name":"Xerxes",
     "age": 15,
     "towelColor": "xtra-black"
   }
