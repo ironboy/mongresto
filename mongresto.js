@@ -269,7 +269,7 @@ var mongresto = module.exports = (function _mongresto(){ return {
 
   checkPermission: function(type,result){
     // Check if we have permission to ask or answer
-    // a question, usig user defined functions from init options
+    // a question, using user defined functions from init options
     var method = this["permissionTo"+type];
     if(typeof method != "function"){return true;}
     if(method(
