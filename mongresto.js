@@ -209,21 +209,17 @@ var mongresto = module.exports = (function _mongresto(){ return {
       .replace(/:(\s*\/[^\}^,]*\w{0,1})/g,':"~regexpstart~$1~regexpend~"');
     var s3 = s2, temp;
     try {
-      s3 = JSON.parse(s2);
-      var t;
-      // convert strings containing reg exps to real reg exps
-      for(var i in s3){
-        t = s3[i];
-        if(t.indexOf('~regexpstart~')===0){
+      s3 = JSON.parse(s2,function(key,t){
+        if((t+'').indexOf('~regexpstart~')===0){
           t = t.replace(/~regexpstart~/g,'').replace(/~regexpend~/,'');
           t = t.split("/");
           t.shift();
-          s3[i] = new RegExp(t[0],t[1] || "");
+          t = new RegExp(t[0],t[1] || "");
         }
-      }
+        return t;
+      });
     } catch(e){}
     search = s3;
-    
     return typeof search == "object" ?
       search : (search ? {_id:search} : {});
   },
