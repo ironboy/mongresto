@@ -2,6 +2,11 @@
   "name": "Mongresto",
   "description": "A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.",
   "author": "Thomas Frank <thomas@nodebite.se> (http://nodebite.se)",
-  "version": "0.2.0",
-  "main": "mongresto.js"
+  "version": "0.2.1",
+  "main": "mongresto.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ironboy/mongresto"
+  },
+  "bugs": "https://github.com/ironboy/mongresto/issues" 
 }
