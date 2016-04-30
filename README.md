@@ -856,10 +856,10 @@ Animal.find({species:"rabbit"})
 The same code using Mongresto in Angular would look like this:
 ```javascript
 $scope.someRabbits = Animal.get({
-  species:"rabbit",
-  _sort:{name: 1},
-  _skip:10,
-  _limit:5
+  species: "rabbit",
+  _sort: {name: 1},
+  _skip: 10,
+  _limit: 5
 });
 ```
 
