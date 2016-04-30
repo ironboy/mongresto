@@ -865,4 +865,4 @@ $scope.someRabbits = Animal.get({
 
 Note that it is important in what order you write your properties. Here the result will first be sorted, then a number of documents skipped and lastly the result will be limited to 5 documents.
 
-(You can actually call any Mongoose function - like *sort*, *skip*, *limit* etc - by creating a property with the function name prefixed with "_".)
+(You can actually use *Mongresto* to call any *Mongoose* function - like *sort*, *skip*, *limit* etc - by creating a property with the Mongoose-function name prefixed with "_".)
