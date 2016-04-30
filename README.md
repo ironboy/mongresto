@@ -47,7 +47,7 @@ app.use(m.cookieparser());
 app.use(m.express.static(m.path.join(__dirname, 'public')));
 
 // Initialize our own REST api - mongresto
-m.mongresto.init(app);
+m.mongresto.init(app, {dbName: "yourDbName"});
 
 // Route everything "else" to angular (in html5mode)
 app.get('*', function (req, res) {
@@ -62,7 +62,7 @@ app.listen(3000, function(){
 
 #### Optional parameters
 
-If you want to you can set a number of options as well . Otherwise they will be set to their default values:
+If you want to you can set a number of options as well (in an object, sent as the second argument to *init*). Otherwise they will be set to their default values:
 
 ```javascript
 {
