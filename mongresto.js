@@ -1,5 +1,5 @@
 /*
-  mongresto 0.2.91
+  mongresto 0.2.92
 
   April 2016 Nodebite AB, Thomas Frank
 
@@ -326,8 +326,8 @@ var mongresto = (function _mongresto(){ return {
       if(specialNames.indexOf(i) < 0){ continue; }
       if(this.search[i] !== undefined){
         specials[i.substr(1)] = this.search[i];
-        delete this.search[i];
       }
+      delete this.search[i];
     }
 
     if(this.method == "GET"){
