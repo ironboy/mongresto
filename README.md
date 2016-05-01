@@ -1,4 +1,4 @@
-# mongresto 0.2.8 - documentation
+# mongresto 0.2.9 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -33,7 +33,7 @@ Mongresto includes Mongoose as a dependency - since it consumes Mongoose models.
 It also includes Express as a dependency and returns a standard Express app upon initialization.
 #### Optional parameters
 
-If you want to you can set a number of options as well (in an object, sent as the second argument to *init*). Otherwise they will be set to their default values:
+If you want to you can set a number of options as well (as properties in the same object that we used for dbName in the example above). Otherwise they will be set to their default values:
 
 ```javascript
 // The MongoDB database to connect to
@@ -838,5 +838,3 @@ $scope.someRabbits = Animal.get({
 ```
 
 Note that it is important in what order you write your properties. Here the result will first be sorted, then a number of documents skipped and lastly the result will be limited to 5 documents.
-
-(You can actually use *Mongresto* to call any *Mongoose* function - like *sort*, *skip*, *limit* etc - by creating a property with the Mongoose-function name prefixed with "_".)
