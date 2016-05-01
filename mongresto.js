@@ -1,5 +1,5 @@
 /*
-  mongresto 0.2.8
+  mongresto 0.2.9
 
   April 2016 Nodebite AB, Thomas Frank
 
@@ -317,24 +317,22 @@ var mongresto = (function _mongresto(){ return {
     // Make responder remember "this"
     // - important since this is not the original mongresto object
     // but rather a clone of it (look in the apiCall method)
-    var that = this, responder = function(){that.responder.apply(that,arguments);};
+    var i, r, that = this, responder = function(){that.responder.apply(that,arguments);};
 
-    // Special operators like _populate, _skip, _limit etc
+    // Special operators like _populate, _sort, _skip, _limit;
     this.search._populate = this.populate;
-    var specials = {};
-    for(var i in this.search){
-      if(i == "_id" || i == "__v"){ continue; }
-      if(i.indexOf("_") === 0 && this.search[i] !== undefined){
+    var specialNames = ["_populate","_sort","_skip","_limit"], specials = {};
+    for(i in this.search){
+      if(specialNames.indexOf(i) < 0){ continue; }
+      if(this.search[i] !== undefined){
         specials[i.substr(1)] = this.search[i];
         delete this.search[i];
       }
     }
 
     if(this.method == "GET"){
-      var r = this.model.find(this.search);
-      for(var i in specials){
-        typeof r[i] == "function" && (r = r[i](specials[i]));
-      }
+      r = this.model.find(this.search);
+      for(i in specials){ r = r[i](specials[i]); }
       r.exec(responder);
     }
 
@@ -349,7 +347,8 @@ var mongresto = (function _mongresto(){ return {
     if(this.method == "POST"){
       var b = this.req.body;
       b = b.push ? b : [b];
-      var l = b.length, r = [], anyError = false;
+      var l = b.length, anyError = false;
+      r = [];
       var f = function(err,result){
         if(anyError){return;}
         if(err){responder(err,false);anyError = true;return;}
@@ -357,7 +356,7 @@ var mongresto = (function _mongresto(){ return {
         l--;
         if(l===0){responder(false,r);}
       };
-      for(var i = 0; i < l; i++){
+      for(i = 0; i < l; i++){
         new this.model(b[i]).save(f);
       }
     }
