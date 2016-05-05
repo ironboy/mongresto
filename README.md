@@ -707,11 +707,7 @@ $scope.someRabbits = Animal.get({
 Note that it is important in what order you write your properties. Here the result will first be sorted, then a number of documents skipped and lastly the result will be limited to 5 documents.
 
 ## Mocking data
-You can easily mock som data to an empty collection using the methods **mock** and **mockIfEmpty**. Reusing are old People model this will look something like:
-
-  name: String,
-    towelColor: String,
-    age:Number
+You can easily mock som data to an empty collection using the methods **mock** and **mockIfEmpty**. This will look something like:
 
 ```javascript
 Person.mock({
