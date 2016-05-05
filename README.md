@@ -1,4 +1,4 @@
-# mongresto 0.2.92 - documentation
+# mongresto 0.3.0 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -31,6 +31,7 @@ app.listen(3000);
 ```
 Mongresto includes Mongoose as a dependency - since it consumes Mongoose models.
 It also includes Express as a dependency and returns a standard Express app upon initialization.
+
 #### Optional parameters
 
 If you want to you can set a number of options as well (as properties in the same object that we used for dbName in the example above). Otherwise they will be set to their default values:
@@ -100,7 +101,35 @@ If you want to you can set a number of options as well (as properties in the sam
 
 Mongresto does not handle security based on user privileges. It will create, delete, update and show anything you ask for. By defining your own **permissionToAsk** and **permissionToAnswer** functions you can integrate your own handling of user roles and privileges with mongresto in a simple, yet fine-grained way.
 
-### Use with Angular.js
+## Create a mongoose model
+
+By default mongresto is looking for mongoosemodels in a folder at root level of your project called *mongoose-models*. (You can change the name and path of the folder if you want - see *Optional parameters*.)
+
+In order to create a mongoose model that mongresto reads and understands you simply create a new file in the mongoose-models folder (or a sub folder inside it). Wrap the model as a module in the following way:
+
+```javascript
+module.exports = function(mongoose){
+
+  // Create a new mongoose schema 
+  // with properties
+  var PersonSchema = mongoose.Schema({
+    name: String,
+    towelColor: String,
+    age:Number
+  });
+
+  // Create a model from the schema
+  var Person = mongoose.model("Person",PersonSchema);
+
+  // Return the model
+  return Person;
+
+};
+```
+
+Mongresto will now automatically create a REST path and an ngResource object from this model (and any other model you create).
+
+## Integration with Angular.js
 
 If you want to take advantage of mongrestos integration with Angular.js, do the following in your index.html file:
 
@@ -128,169 +157,7 @@ In order for the integration with Angular to work you should set up your app wit
 var app = angular.module("ngNode", ["ngRoute", "ngResource", "ui.bootstrap"]);
 ```
 
-Your next step will be to add one (or several) mongoose models.
-
-## Create a mongoose model
-
-Create a new file in the mongoose-models folder (or a sub folder inside it). Wrap it in the following way:
-
-```javascript
-module.exports = function(mongoose){
-
-  // Create a new mongoose schema 
-  // with properties
-  var PersonSchema = mongoose.Schema({
-    name: String,
-    towelColor: String,
-    age:Number
-  });
-
-  // Create a model from the schema
-  var Person = mongoose.model("Person",PersonSchema);
-
-  // Return the model
-  return Person;
-
-};
-```
-
-Mongresto will now automatically create a REST path and an ngResource object from this model (and any other model you create).
-
-## Use the REST service
-
-If you plan to take advantage of mongresto's Angular.js integration, chances are you will never need to see/understand the raw REST service. However, if you are using another frontend, this documentation might come in handy.
-
-This example presupposes that you have created a mongoose model named Person.
-
-### POST - C[reate]RUD
-
-```javascript
-HTTP method: POST
-
-URL: /api/person
-
-Request body:
-{
-  "name":"Annika Green",
-  "age": 65,
-  "towelColor": "black"
-}
-
-Creates a new person. You can also create several persons at once:
-
-URL: /api/person
-
-Request body:
-[
-  {
-    "name":"Annie",
-    "age": 30,
-    "towelColor": "green"
-  },
-  {
-    "name":"Xerxes",
-    "age": 15,
-    "towelColor": "xtra-black"
-  }
-]
-
-The return value will be an JSON array with objects containing _id and __v properties:
-[
-  {
-    "__v":0,
-    "name":"Annie",
-    "age":30,
-    "towelColor":"green",
-    "_id":"557c478c7174aca62e8bb84c"
-  },
-  {
-    "__v":0,
-    "name":"Xerxes",
-    "age":15,
-    "towelColor":"xtra-black",
-    "_id":"557c478c7174aca62e8bb84d"
-  }
-]
-```
-
-### GET - CR[ead]UD
-
-```javascript
-HTTP method: GET
-
-URL: /api/person
-List all persons. JSON array.
-
-URL: /api/person/557c4349779ef7d82cd8611a
-Return a person with the id 557c4349779ef7d82cd8611a. JSON object.
-
-URL: /api/person/{name:"Annie"}
-Return all persons named Annie. JSON array.
-
-URL: /api/person/{name:/an/i}
-Return all persons with names starting with "an" (case insensitive). JSON array.
-
-URL: /api/person/{age:{$gt:30}}
-Return all persons that are older than 30 years. JSON array.
-
-URL: /api/person/{_all:/green/i}
-Return all persons with a name or towelColor that contains "green". JSON array
-```
-
-You can use any type of search object that you can define with mongoose/mongo. [Read up on a world of possibilites](http://docs.mongodb.org/manual/reference/operator/query/).
-
-### UPDATE - CRU[pdate]D
-
-```javascript
-HTTP method: UPDATE
-
-The following will update the name of the person with the id 557c4349779ef7d82cd8611a to Marcus.
-
-URL: /api/person/557c4349779ef7d82cd8611a
-
-Request body:
-{
-  "name": "Marcus"
-}
-
-The following will find all persons that have the word black in their towelColor and set their towelColor to pink.
-
-URL: /api/person/{towelColor:/black/}
-
-Request body: 
-{
-  "towelColor":"pink"
-}
-
-An update operation returns a JSON object:
-{
-  "ok": [0 = no, 1 = yes],
-  "nModified": [numer of items modified],
-  "n": [number of items found]
-}
-```
-
-### DELETE - CRUD[elete]
-
-```javascript
-HTTP method: DELETE
-
-URL: /api/person/557c4349779ef7d82cd8611a
-Delete the person with the id 557c4349779ef7d82cd8611a.
-
-URL: /api/person/{name:/^an/i}
-Delete all persons with names starting with "an" (case insensitive).
-
-A delete operation returns a JSON object:
-{
-  ok: [0 = no, 1 = yes]
-  n: [number of items deleted]
-}
-```
-
-## Integration with Angular.js
-
-Mongresto will integrate beautifully with Angular.js (provided that you have followed the steps we described in the _Setup_ section).
+### Automatically created ngResource dependencies
 
 You are ready to inject objects with the same names as your mongoose models in your controllers - mongresto has created them for you.
 
@@ -838,3 +705,155 @@ $scope.someRabbits = Animal.get({
 ```
 
 Note that it is important in what order you write your properties. Here the result will first be sorted, then a number of documents skipped and lastly the result will be limited to 5 documents.
+
+## Mocking data
+You can easily mock som data to an empty collection using the methods **mock** and **mockIfEmpty**. Reusing are old People model this will look something like:
+
+  name: String,
+    towelColor: String,
+    age:Number
+
+```javascript
+Person.mock({
+  _items:25,
+  name: ["Alice", "Bob", "Carla", "David", "Esther", "Frank"],
+  towelColor: ["black", "blue", "red", "green", "yellow", "purple", "white"],
+  age: function(){ return Math.floor(Math.random()*100); }
+})
+```
+This would create 25 new persons, were names and towel colors are randomized from the arrays and the age is randomized by your own function.
+
+If your prefer to only mock data to a collection if is empty use **mockIfEmpty** instead of **mock**.
+
+
+## Use the REST service
+
+If you plan to take advantage of mongresto's Angular.js integration, chances are you will never need to see/understand the raw REST service. However, if you are using another frontend, this documentation might come in handy.
+
+This example presupposes that you have created a mongoose model named Person.
+
+### POST - C[reate]RUD
+
+```javascript
+HTTP method: POST
+
+URL: /api/person
+
+Request body:
+{
+  "name":"Annika Green",
+  "age": 65,
+  "towelColor": "black"
+}
+
+Creates a new person. You can also create several persons at once:
+
+URL: /api/person
+
+Request body:
+[
+  {
+    "name":"Annie",
+    "age": 30,
+    "towelColor": "green"
+  },
+  {
+    "name":"Xerxes",
+    "age": 15,
+    "towelColor": "xtra-black"
+  }
+]
+
+The return value will be an JSON array with objects containing _id and __v properties:
+[
+  {
+    "__v":0,
+    "name":"Annie",
+    "age":30,
+    "towelColor":"green",
+    "_id":"557c478c7174aca62e8bb84c"
+  },
+  {
+    "__v":0,
+    "name":"Xerxes",
+    "age":15,
+    "towelColor":"xtra-black",
+    "_id":"557c478c7174aca62e8bb84d"
+  }
+]
+```
+
+### GET - CR[ead]UD
+
+```javascript
+HTTP method: GET
+
+URL: /api/person
+List all persons. JSON array.
+
+URL: /api/person/557c4349779ef7d82cd8611a
+Return a person with the id 557c4349779ef7d82cd8611a. JSON object.
+
+URL: /api/person/{name:"Annie"}
+Return all persons named Annie. JSON array.
+
+URL: /api/person/{name:/an/i}
+Return all persons with names starting with "an" (case insensitive). JSON array.
+
+URL: /api/person/{age:{$gt:30}}
+Return all persons that are older than 30 years. JSON array.
+
+URL: /api/person/{_all:/green/i}
+Return all persons with a name or towelColor that contains "green". JSON array
+```
+
+You can use any type of search object that you can define with mongoose/mongo. [Read up on a world of possibilites](http://docs.mongodb.org/manual/reference/operator/query/).
+
+### UPDATE - CRU[pdate]D
+
+```javascript
+HTTP method: UPDATE
+
+The following will update the name of the person with the id 557c4349779ef7d82cd8611a to Marcus.
+
+URL: /api/person/557c4349779ef7d82cd8611a
+
+Request body:
+{
+  "name": "Marcus"
+}
+
+The following will find all persons that have the word black in their towelColor and set their towelColor to pink.
+
+URL: /api/person/{towelColor:/black/}
+
+Request body: 
+{
+  "towelColor":"pink"
+}
+
+An update operation returns a JSON object:
+{
+  "ok": [0 = no, 1 = yes],
+  "nModified": [numer of items modified],
+  "n": [number of items found]
+}
+```
+
+### DELETE - CRUD[elete]
+
+```javascript
+HTTP method: DELETE
+
+URL: /api/person/557c4349779ef7d82cd8611a
+Delete the person with the id 557c4349779ef7d82cd8611a.
+
+URL: /api/person/{name:/^an/i}
+Delete all persons with names starting with "an" (case insensitive).
+
+A delete operation returns a JSON object:
+{
+  ok: [0 = no, 1 = yes]
+  n: [number of items deleted]
+}
+```
