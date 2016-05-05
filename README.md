@@ -103,9 +103,9 @@ Mongresto does not handle security based on user privileges. It will create, del
 
 ## Create a mongoose model
 
-By default mongresto is looking for mongoosemodels in a folder at root level of your project called *mongoose-models*. (You can change the name and path of the folder if you want - see *Optional parameters*.)
+By default **mongresto** is looking for mongoose models in a folder at the root level of your project called *mongoose-models*. You need to create such a folder. (You can change the name and path of where **mongresto** expects this folder to be if you want - see *Optional parameters*.)
 
-In order to create a mongoose model that mongresto reads and understands you simply create a new file in the mongoose-models folder (or a sub folder inside it). Wrap the model as a module in the following way:
+In order to create a mongoose model that mongresto reads and understands you simply create a new file in the *mongoose-models* folder (or a sub folder inside it). Wrap the model as a module in the following way:
 
 ```javascript
 module.exports = function(mongoose){
