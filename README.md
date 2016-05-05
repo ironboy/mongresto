@@ -183,7 +183,7 @@ app.controller("homeController", ["$scope", "Person",
 
 ### Methods
 
-The Person object above – and any object created by mongresto – have 6 methods:
+The Person object above – and any object created by mongresto – have 8 methods:
 
 **Person.create** (_{personProperties}_) – Creates a new person. (You can also send an array of objects to this method to create several persons at once.)
 
@@ -194,6 +194,10 @@ The Person object above – and any object created by mongresto – have 6 metho
 **Person.update** (_{searchObject}, {propertiesToUpdate_) Updates objects that match the criterias of the search object.
 
 **Person.remove** (_{searchObject}_) Delete objects that match the criterias of the search object.
+
+**Person.mock** (_{mockSeeds}_) Mocks data to a collection.
+
+**Person.mockIfEmpty** (_{mockSeeds}_) Mocks data to an empty collection.
 
 **Person.onQueueDone** (_[function]_) Wait for the mongresto engine to finish all pending db queries (not just the ones involving Person). Then run the function you have provided (once, this is not a permanent listener) – see the note below for details on async behavior.
 
