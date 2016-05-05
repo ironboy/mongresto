@@ -717,9 +717,9 @@ Person.mock({
   age: function(){ return Math.floor(Math.random()*100); }
 })
 ```
-This would create 25 new persons, were names and towel colors are randomized from the arrays and the age is randomized by your own function.
+This would create 25 new persons, where names and towel colors are randomized from the arrays and the age is randomized by your own function.
 
-If your prefer to only mock data to a collection if is empty use **mockIfEmpty** instead of **mock**.
+If your prefer to only mock data to a collection if it is empty, then use **mockIfEmpty** instead of **mock**.
 
 
 ## Use the REST service
