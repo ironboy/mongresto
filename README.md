@@ -1,4 +1,4 @@
-# mongresto 0.3.5 - documentation
+# mongresto 0.3.6 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -669,6 +669,13 @@ Here you can see the results:
     }
   }
 ]
+```
+
+## Selecting certain fields/properties
+Sometimes you don't want to return all properties in your result set. In this example we only retrieve the **_id** and the **name** of each person:
+
+```javascript
+$scope.persons = Person.get({_fields:'_id name'});
 ```
 
 ## Sorting, skipping and limiting

@@ -13,7 +13,8 @@ module.exports = function runQuery(){
   // - important since this is not the original mongresto object
   // but rather a clone of it (look in the apiCall method)
   var i, r, that = this, responder = function(){that.responder.apply(that,arguments);};
-   // Special operators like _populate, _sort, _skip, _limit;
+  
+  // Special operators like _populate, _sort, _skip, _limit;
   this.search._populate = this.populate;
   var specialNames = ["_populate","_sort","_skip","_limit"], specials = {};
   for(i in this.search){
@@ -23,18 +24,27 @@ module.exports = function runQuery(){
     }
     delete this.search[i];
   }
-   if(this.method == "GET"){
+  
+  // What fields to include - _fields
+  var fields = {};
+  if(this.search._fields){ fields._id = 0; }
+  this.search._fields = typeof this.search._fields == "string" ?
+    this.search._fields.split(' ') : this.search._fields;
+  (this.search._fields || []).forEach(function(x){ fields[x] = 1; });
+  delete this.search._fields;
+  
+  if(this.method == "GET"){
     r = this.model.find(this.search);
     for(i in specials){ r = r[i](specials[i]); }
     r.exec(responder);
   }
-   if(this.method == "DELETE"){
+  if(this.method == "DELETE"){
     this.model.find(this.search).remove(responder);
   }
-   if(this.method == "PUT"){
+  if(this.method == "PUT"){
     this.model.update(this.search,this.req.body,{multi:true},responder);
   }
-   if(this.method == "POST"){
+  if(this.method == "POST"){
     var b = this.req.body;
     b = b.push ? b : [b];
     var l = b.length, anyError = false;
