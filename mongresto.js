@@ -1,5 +1,5 @@
 /*
-  mongresto 0.3.6
+  mongresto 0.3.7
 
   May 2016 Nodebite AB, Thomas Frank
 
