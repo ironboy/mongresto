@@ -1,17 +1,40 @@
-# mongresto 0.3.7 - documentation
+# mongresto 0.3.8 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
 Thomas Frank, Nodebite, April 2016
 
+### mongresto is a **m**onkey **o**bediently **n**arrating **g**enuine **REST**-based **o**bjects
+
+When you write a modern web site/application there’s a good chance that you will want to decouple the client from the server using your own REST api.
+
+This usually means writing a lot of REST api routes on the backend and some kind of OOP wrapper for each entity on the frontend – i.e. Person.get() returns a list of persons etc. That’s rather boring work, since the code required is highly standardized between different data entities and different projects.
+
+#### Some programming tasks are for monkeys
+We decided that a machine could write this code instead, consistently setting up routes and OOP wrappers without the risk of human fatigue and human error. 
+
+Thus: Less time spent on trivial things, less boredom and less debugging. And in this case less is truly more – more time for fun and productive stuff, like talking to your customers, developing sensible data models and delivering an awesome user experience.
+
+#### A monkey named Mongresto
+So we created an virtual code monkey named Mongresto. The name was a consequence of the library initially being targeted for use with the full MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).
+
+Mongresto used to be an acronym for something like “mongoDB with REST”, but the more we got the know it we now lean towards the following deciphering: “Monkey Obediently Narrating Genuine REST-based Objects“.
+
+#### Grew up to be Angular-agnostic
+Our little monkey originally trusted in Angular.js and its ngResource-objects – saving it from parts of the heavy OOP wrap work. But over time it became cheeky and learned how to make its own wrappers when Angular.js wasn’t around to play.
+
+#### Embraces a variety of frontend framework flavors
+Now you can get your OOP wrappers as ngResources, jQuery plugins or standalone objects. That means that you can always use them when working with your frontend framework of choice – be it Ember.js, Backbone.js, React, Aurelia, just jQuery or no framework at all.
+
+
+## Prerequisites
+
+Node.js >= 4.0 and MongoDB must be installed.
+
 ### Usage
 
 Install: **npm install mongresto**
 (or incude as an dependency in your package.json file)
-
-## Setup
-
-Install MongoDB, node.js, Express and Mongoose.
 
 ### Include mongresto in your node.js/Express app
 
