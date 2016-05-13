@@ -1,4 +1,4 @@
-# mongresto 0.3.82 - documentation
+# mongresto 0.3.83 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 

@@ -8,11 +8,12 @@ forin: false
 */
 module.exports = function connectToDb(){
   // Connect to mongoose
-  this.mongoose = require("mongoose");
-  this.mongoose.connect(this.protocolName + '://' + this.serverName + '/' + this.dbName);
+  var t = this;
+  t.mongoose = require("mongoose");
+  t.mongoose.connect(t.protocolName + '://' + t.serverName + '/' + t.dbName);
  
   // Check connection
-  this.mongoose.connection.once('open', function() {
-    console.log("Mongresto: Connected to database " + this.dbName + "!");
+  t.mongoose.connection.once('open', function() {
+    console.log("Mongresto: Connected to database " + t.dbName + "!");
   });
 };
