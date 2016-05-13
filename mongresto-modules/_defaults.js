@@ -3,6 +3,12 @@ module.exports = {
   // The MongoDB database to connect to
   dbName: "test",
 
+  // The servername to use for the DB connection 
+  serverName: "localhost",
+
+  // The procotcol to use for the DB connection
+  protocolName: "mongodb",
+
   // The path to the rest api
   apiPath: "/api",
 

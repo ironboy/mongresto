@@ -1,5 +1,5 @@
 /*
-  mongresto 0.3.8
+  mongresto 0.3.81
 
   May 2016 Nodebite AB, Thomas Frank
 
@@ -54,6 +54,7 @@ function pub(options){
 
 // The old init method (deprecated but supported for a while)
 pub.init = function(app,options){
+  mongresto.load();
   return mongresto.init.apply(mongresto,[app,options]);
 };
 

@@ -1,4 +1,4 @@
-# mongresto 0.3.8 - documentation
+# mongresto 0.3.82 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
@@ -62,6 +62,12 @@ If you want to you can set a number of options as well (as properties in the sam
 ```javascript
   // The MongoDB database to connect to
   dbName: "test",
+
+  // The servername to use for the DB connection 
+  serverName: "localhost",
+
+  // The procotcol to use for the DB connection
+  protocolName: "mongodb",
 
   // The path to the rest api
   apiPath: "/api",
