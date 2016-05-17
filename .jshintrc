@@ -1,0 +1,9 @@
+{
+  loopfunc: true,
+  trailing: true,
+  sub: true,
+  expr: true,
+  noarg: false,
+  forin: false,
+  node: true
+}

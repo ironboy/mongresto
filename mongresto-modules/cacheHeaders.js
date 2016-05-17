@@ -1,12 +1,4 @@
-  /* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
-module.exports = function cacheHeaders(app){
+  module.exports = function cacheHeaders(app){
   var bootstrapStartGMT = new Date().toGMTString(), t = this;
   if(!t.controlCacheHeaders){ return; }
   app.disable('x-powered-by');

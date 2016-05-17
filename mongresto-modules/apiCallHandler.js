@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function apiCallHandler(req,res){
   // Save the req and res objects + http method
   this.req = req;

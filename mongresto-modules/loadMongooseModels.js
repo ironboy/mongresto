@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function loadMongooseModels(){
   // Load all mongoose models
   var res, model, mongoose = this.mongoose;

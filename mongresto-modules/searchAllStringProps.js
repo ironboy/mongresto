@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function searchAllStringProps(val){
   if(!val){return;}
   var or = [], paths = this.model.schema.paths, obj;

@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function responder(error,result,errorCode){
   // Respond to CRUD calls
   var singleton = !this.forceArray && this.req.method == "GET" && this.search._id;

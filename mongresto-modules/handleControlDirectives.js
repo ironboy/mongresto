@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function handleControlDirectives(){
   var b = this.req.body;
   this.forceArray = this.search.__forceArray;

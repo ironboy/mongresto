@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngCreateMethod(re,obj,methods,methodName){
    var that = this, methodSpec = methods[methodName];
    // Create a method

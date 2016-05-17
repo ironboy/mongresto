@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngMockNgApp(ngAppVarName){
   // Mocks ng factory and recreates
   // necessary features of ngResource

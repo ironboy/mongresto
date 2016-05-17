@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngMockNgAppAjax(path,query,method,payload,isArray,cb,toReturn){
   var ajax = window.jQuery ? jQuery.ajax : this.ngAjax;
   ajax({

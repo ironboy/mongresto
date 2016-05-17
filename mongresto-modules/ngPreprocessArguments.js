@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngPreprocessArguments(args, methodName, methodSpec){
   // Preprocesses arguments to different methods
   args = Array.prototype.slice.call(args);

@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngAddMockers(obj){
   Object.assign(obj,{
     // mock collection data from an object with seeds

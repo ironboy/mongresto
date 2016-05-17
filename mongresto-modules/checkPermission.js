@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function checkPermission(type,result){
   // Check if we have permission to ask or answer
   // a question, using user defined functions from init options

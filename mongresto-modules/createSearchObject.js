@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function createSearchObject(search){
   // Build the search object from a string
   // try to eval to object, otherwise, if truthy,

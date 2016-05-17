@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngInit(){
   // Extend RegExp for json serialization
   RegExp.prototype.toJSON = function(){

@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngCreateResource(entity){
   var that = this, methods = this.ngMethods(), app = window["ngAppName"];
   (app && app.factory) || (app = this.ngMockNgApp("ngAppName"));

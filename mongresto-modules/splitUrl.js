@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function splitUrl(url){
   // Remove the apiPath and then split on the first slash
   url = url.split(this.apiPath + "/")[1];

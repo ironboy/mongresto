@@ -1,5 +1,5 @@
 /*
-  mongresto 0.3.83
+  mongresto 0.3.84
 
   May 2016 Nodebite AB, Thomas Frank
 
@@ -15,14 +15,6 @@
   Nodebite code style -> jshint settings below, also 
   indent = 2 spaces, keep your rows reasonably short
   also your methods below sceen height.
-*/
-/* jshint 
-  loopfunc: true,
-  trailing: true,
-  sub: true,
-  expr: true,
-  noarg: false,
-  forin: false
 */
 
 var mongresto = (function(){ return {

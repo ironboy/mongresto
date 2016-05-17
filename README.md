@@ -1,8 +1,8 @@
-# mongresto 0.3.83 - documentation
+# mongresto 0.3.84 - documentation
 
 A REST service API for Node.js Express + MongoDB + Mongoose that is based on Mongoose models and generates Angular Resource objects on the fly.
 
-Thomas Frank, Nodebite, April 2016
+Thomas Frank, Nodebite, May 2016
 
 ### mongresto is a **m**onkey **o**bediently **n**arrating **g**enuine **REST**-based **o**bjects
 

@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function getFileNames(path,callback){
    var mpath = require("path"),
        appRoot = '' + require('app-root-path');

@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function ngAjax(s){
   var x = new XMLHttpRequest(), success;
   x.open(s.method,s.url,true);

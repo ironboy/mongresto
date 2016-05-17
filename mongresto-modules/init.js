@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function init(app,options,m){
   var mongresto = this;
   console.log("Mongresto: Initializing!");

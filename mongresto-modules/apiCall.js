@@ -1,11 +1,3 @@
-/* jshint
-loopfunc: true,
-trailing: true,
-sub: true,
-expr: true,
-noarg: false,
-forin: false
-*/
 module.exports = function apiCall(req,res){
    // Important! Since Node.js is single-threaded
   // saving things in the this scope
@@ -18,4 +10,4 @@ module.exports = function apiCall(req,res){
   // (This is a nice alternative to sending around 
   //  a lot of parameters between methods - old school node)
   Object.create(this).apiCallHandler(req,res);
- };
+};
