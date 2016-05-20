@@ -110,9 +110,11 @@ If you want to you can set a number of options as well (as properties in the sam
   // mongresto functionality
   customRoutes: [
     {
-      path: "customRoute/:param1",
       // route name AFTER '/api/'
-
+      path: "customRoute/:param1",
+      // any valid express router method (all, get, post, ...)
+      method: 'all',
+      // the controller function
       controller: customRouteController
       /*
         function that will recieve mongoose connection,
