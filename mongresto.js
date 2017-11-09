@@ -1,5 +1,5 @@
 /*
-  mongresto 0.3.84... Changing things!
+  mongresto 0.3.84
 
   May 2016 Nodebite AB, Thomas Frank
 
